@@ -49,6 +49,8 @@
   },
   "devDependencies": {
     "@types/redux-logger": "^3.0.9",
-    "sass": "^1.52.3"
+    "@types/sinon": "^10.0.11",
+    "sass": "^1.52.3",
+    "sinon": "^14.0.0"
   }
 }

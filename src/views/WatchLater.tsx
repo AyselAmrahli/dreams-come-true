@@ -1,11 +1,47 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-const WatchLater:FC = () => {
+import MovieItem from '../components/MovieItem';
+import PageTitle from '../components/PageTitle';
+import Grid from '../components/shared/Grid';
+import Loading from '../components/Loading';
+
+import { getWatchList } from '../redux/actions';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { EList } from '../const/enum';
+
+const WatchList:FC = () => {
+  const navigate = useNavigate();
+  let dispatch = useDispatch();
+  const movies = useSelector((state: any) => state.MovieReducer.watchList)
+  const [watchlist] = useLocalStorage(EList.WATCH, "")
+
+  useEffect(() => {
+    dispatch(getWatchList(watchlist))
+  }, [])
+
+  const movieItems = movies?.map((el: any) =>
+    <MovieItem
+      key={el.id}
+      title={el.title}
+      poster={el.poster_path}
+      rate={el.vote_average}
+      navigate={() => navigate(`/${el.id}`)}
+    />
+  )
+
   return (
-    <section>
-      Watch Later
+    <section className="app-page__wrapper">
+      <PageTitle content='Watch List' />
+      <div style={{padding: '40px 0'}}>
+        {movieItems ?
+        <Grid>
+          {movieItems}
+        </Grid> : <Loading />}
+      </div>
     </section>
   );
 }
 
-export default WatchLater;
+export default WatchList;

@@ -4,7 +4,7 @@ import Star from '../../assets/images/star.svg';
 import './index.scss';
 
 interface IProps {
-  rate: string;
+  rate?: number;
 }
 
 const RateButton:FC<IProps> = ({rate}) => {
@@ -14,7 +14,6 @@ const RateButton:FC<IProps> = ({rate}) => {
       <img
         src={Star}
         alt="movie app rate"
-        role="icon"
         className="icon"
       />
       <span>{rate}</span>

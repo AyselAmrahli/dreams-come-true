@@ -1,6 +1,11 @@
 @use '../../assets/sass/main' as M;
 @use '../../assets/sass/colors' as C;
 
+.centered {
+  display: flex;
+  align-items: center;
+}
+
 .app-movie__item {
   padding: 8px;
   border-radius: M.$radius-main;
@@ -18,5 +23,20 @@
   &__title  {
     padding: 10px;
     color: C.$gray_50;
+    @extend .centered
+  }
+
+  .app-movie__btn--add {
+    color: C.$primary_400;
+    border: none;
+    outline: none;
+    padding: 0 10px 10px 10px;
+    background-color: transparent;
+    cursor: pointer;
+    @extend .centered;
+    img.icon {
+      margin-right: 5px;
+      fill: C.$primary_400;
+    }
   }
 }
