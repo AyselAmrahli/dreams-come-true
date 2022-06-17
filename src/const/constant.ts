@@ -5,9 +5,7 @@ import Home from "../views/Home";
 import WatchLater from "../views/WatchLater";
 import { IAppMenuList, IAppRoute } from "./model";
 
-export const getApiKey = () => {
-  if (process.env.NODE_ENV !== 'production') return '56b4e93d2204bee0e2d35d74719395af'
-}
+export const getApiKey = () => '56b4e93d2204bee0e2d35d74719395af';
 
 const BASE_URL = 'http://api.themoviedb.org/3'
 
