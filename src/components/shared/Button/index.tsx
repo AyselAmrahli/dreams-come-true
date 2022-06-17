@@ -10,7 +10,7 @@ interface IProps {
 const Button: FC<IProps> = ({children, onClick}) => (
   <button
     className="app-button"
-    onChange={onClick}
+    onClick={onClick}
   >
     {children}
   </button>

@@ -1,7 +1,7 @@
 // *** action types contstants *** //
 export const GET_REQUEST_TOKEN = 'GET_REQUEST_TOKEN';
-export const GET_REQUEST_SESSION = 'GET_GUEST_SESSION';
-export const GET_ACCOUNT_ID = 'GET_GUEST_SESSION';
+export const GET_REQUEST_SESSION = 'GET_REQUEST_SESSION';
+export const GET_ACCOUNT_ID = 'GET_ACCOUNT_ID';
 
 export const GET_MOVIES = 'GET_MOVIES';
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';

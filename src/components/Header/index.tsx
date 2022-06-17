@@ -23,14 +23,16 @@ const Header:FC = () => {
       <div className="app-header__logo">
           <img src={logo} alt="app movie logo" />
       </div>
-      <Button
-        onClick={() => handleGetRequest}
+      {!(hasSessionToken || localStorage.getItem('account_id')) && <Button
+        onClick={() => handleGetRequest()}
       >
         Get Session
       </Button>
+      }
+
        {(hasSessionToken || localStorage.getItem('account_id')) && <Menu list={appMenuList} />}
     </header>
   );
 }
 
-export default React.memo(Header);
+export default Header;

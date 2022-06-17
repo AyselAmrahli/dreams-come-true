@@ -1,7 +1,7 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects';
 import axios from 'axios';
 
-import { getApiKey, getApiUrl } from '../../const/constant';
+import { API_KEY, BASE_URL, getApiUrl } from '../../const/constant';
 import { 
   ADD_FAV_LIST,
   ADD_WATCH_LIST,
@@ -57,7 +57,7 @@ function* watchGetRequestSession() {
 // account id
 export function* getAccountId({payload}: any) {
   try {
-    const { data } = yield call(axios.get, `https://api.themoviedb.org/3/account?api_key=${getApiKey()}&session_id=${payload.session_id}`)
+    const { data } = yield call(axios.get, `${BASE_URL}/account?api_key=${API_KEY}&session_id=${payload.session_id}`)
     localStorage.setItem('account_id', data.id)
   } catch (e) {
     console.log(e)
@@ -101,7 +101,7 @@ export function* fetchWatchList({payload: list}: any) {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    const { data } = yield call(axios.get, `https://api.themoviedb.org/3/account/${account_id}/watchlist/movies?api_key=${getApiKey()}&session_id=${session_id}`)
+    const { data } = yield call(axios.get, `${BASE_URL}/account/${account_id}/watchlist/movies?api_key=${API_KEY}&session_id=${session_id}`)
     yield put({ type: RECEIVE_WATCH_LIST, payload: { watchList: data.results } })
   } catch (e) {
     console.log(e)
@@ -117,7 +117,7 @@ export function* fetchFavList({payload: list}: any) {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    const { data } = yield call(axios.get, `https://api.themoviedb.org/3/account/${account_id}/favorite/movies?api_key=${getApiKey()}&session_id=${session_id}`)
+    const { data } = yield call(axios.get, `${BASE_URL}/account/${account_id}/favorite/movies?api_key=${API_KEY}&session_id=${session_id}`)
     yield put({ type: RECEIVE_FAV_LIST, payload: { favList: data.results } })
   } catch (e) {
     console.log(e)
@@ -133,7 +133,7 @@ export function* addWatchList({payload: id}: any) {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    const { data } = yield call(axios.post, `https://api.themoviedb.org/3/account/${account_id}/watchlist?api_key=${getApiKey()}&session_id=${session_id}`, {
+    const { data } = yield call(axios.post, `${BASE_URL}/account/${account_id}/watchlist?api_key=${API_KEY}&session_id=${session_id}`, {
       "media_type": "movie",
       "media_id": id,
       "watchlist": true
@@ -152,7 +152,7 @@ export function* addFavList({payload: id}: any) {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    const { data } = yield call(axios.post, `https://api.themoviedb.org/3/account/${account_id}/favorite?api_key=${getApiKey()}&session_id=${session_id}`, {
+    const { data } = yield call(axios.post, `${BASE_URL}/account/${account_id}/favorite?api_key=${API_KEY}&session_id=${session_id}`, {
       "media_type": "movie",
       "media_id": id,
       "favorite": true
