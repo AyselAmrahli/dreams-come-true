@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const SearchField: FC<IProps> = ({placeholder = '', defaultValue, onChange}) => (
-  <div className="search-field">
+  <div className="app-search-field">
     <input
       type="text"
       value={defaultValue}

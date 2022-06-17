@@ -8,17 +8,14 @@ import Grid from '../components/shared/Grid';
 import Loading from '../components/Loading';
 
 import { getFavList } from '../redux/actions';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { EList } from '../const/enum';
 
 const Favourites:FC = () => {
   const navigate = useNavigate();
   let dispatch = useDispatch();
   const movies = useSelector((state: any) => state.MovieReducer.favList)
-  const [favouriteList] = useLocalStorage(EList.FAVOURITE, "");
 
   useEffect(() => {
-    dispatch(getFavList(favouriteList))
+    dispatch(getFavList())
   }, [])
 
   const movieItems = movies?.map((el: any) =>

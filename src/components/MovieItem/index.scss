@@ -25,18 +25,4 @@
     color: C.$gray_50;
     @extend .centered
   }
-
-  .app-movie__btn--add {
-    color: C.$primary_400;
-    border: none;
-    outline: none;
-    padding: 0 10px 10px 10px;
-    background-color: transparent;
-    cursor: pointer;
-    @extend .centered;
-    img.icon {
-      margin-right: 5px;
-      fill: C.$primary_400;
-    }
-  }
 }

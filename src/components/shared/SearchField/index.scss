@@ -1,14 +1,14 @@
 @use '../../../assets/sass/main' as M;
 @use '../../../assets/sass/colors' as C;
 
-.search-field {
+.app-search-field {
   height: 64px;
 
   input {
     height: M.$fullheight;
     width: 344px;
     border: 1px solid C.$gray_700;
-    border-radius: 12px;
+    border-radius: M.$radius-main;
     color: C.$gray_600;
     background-color: transparent;
     background-image: url(../../../assets/images/search.svg);

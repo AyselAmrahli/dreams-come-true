@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { 
   GET_MOVIES,
-  RECEIVE_FAVOURITE_LIST,
+  RECEIVE_FAV_LIST,
   RECEIVE_MOVIES,
   RECEIVE_MOVIE_DETAIL,
   RECEIVE_WATCH_LIST
@@ -17,7 +17,7 @@ const MovieReducer = (state = {}, action: any) => {
       return { ...state, movie: action.payload.movie};
     case RECEIVE_WATCH_LIST:
       return { ...state, watchList: action.payload.watchList};
-    case RECEIVE_FAVOURITE_LIST:
+    case RECEIVE_FAV_LIST:
       return { ...state, favList: action.payload.favList};
     default:
       return state;

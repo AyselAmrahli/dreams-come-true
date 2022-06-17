@@ -11,18 +11,15 @@ import Grid from '../components/shared/Grid';
 import SearchField from '../components/shared/SearchField';
 import Loading from '../components/Loading';
 
-import { getMovies } from '../redux/actions';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { addFavList, addWatchList, getMovies } from '../redux/actions';
 import { EList } from '../const/enum';
-import { isInFavList, isInWatchList } from '../utils';
+import Button from '../components/shared/Button';
 
 const Home:FC = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState<string>('');
   let dispatch = useDispatch();
   const movies = useSelector((state: any) => state.MovieReducer.movies)
-  const [watchlist, setWatchlist] = useLocalStorage("watchlist", "");
-  const [favouriteList, setFavouriteList] = useLocalStorage("favouriteList", "");
 
   useEffect(() => {
     dispatch(getMovies())
@@ -36,23 +33,14 @@ const Home:FC = () => {
     return () => clearTimeout(getData)
   }, [value])
 
-  const addToMyList = (item: number, type: EList) => {
+  const addToList = (item: number, type: EList) => {
     switch (type) {
       case EList.WATCH:
-        const watch =[...watchlist];
-        if (!watch.includes(item)) {
-          watch.push(item)
-          setWatchlist(watch)
-          
-        }
+        dispatch(addWatchList(item))
         break;
 
       case EList.FAVOURITE:
-        const fav = [...favouriteList];
-        if(!fav.includes(item)) {
-          fav.push(item)
-          setFavouriteList(fav)
-        }
+        dispatch(addFavList(item))
         break;
     
       default:
@@ -68,18 +56,18 @@ const Home:FC = () => {
       rate={el.vote_average}
       navigate={() => navigate(`/${el.id}`)}
     >
-      <button
-        className="app-movie__btn--add"
-        onClick={() => addToMyList(el.id, EList.WATCH)}
-      >
-        <img src={Plus} className="icon" alt="icon" /> {!isInWatchList(el.id) ? 'Add to watch later' : 'Added to watch later'}
-      </button>
-      <button
-        className="app-movie__btn--add"
-        onClick={() => addToMyList(el.id, EList.FAVOURITE)}
-      >
-        <img src={Like} className="icon" alt="icon" /> {!isInFavList(el.id) ? 'Add to my favourites' : 'Added to favourites'}
-      </button>
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <Button
+          onClick={() => addToList(el.id, EList.WATCH)}
+        >
+          <img src={Plus} className="icon" alt="icon" />
+        </Button>
+        <Button
+          onClick={() => addToList(el.id, EList.FAVOURITE)}
+        >
+          <img src={Like} className="icon" alt="icon" />
+        </Button>
+      </div>
     </MovieItem>
   )
 

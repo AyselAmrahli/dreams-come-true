@@ -8,17 +8,14 @@ import Grid from '../components/shared/Grid';
 import Loading from '../components/Loading';
 
 import { getWatchList } from '../redux/actions';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { EList } from '../const/enum';
 
 const WatchList:FC = () => {
   const navigate = useNavigate();
   let dispatch = useDispatch();
   const movies = useSelector((state: any) => state.MovieReducer.watchList)
-  const [watchlist] = useLocalStorage(EList.WATCH, "")
 
   useEffect(() => {
-    dispatch(getWatchList(watchlist))
+    dispatch(getWatchList())
   }, [])
 
   const movieItems = movies?.map((el: any) =>

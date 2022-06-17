@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { routes } from './const/constant';
 
 import Header from './components/Header';
+import Container from './components/shared/Container';
 
 import './App.scss';
-import Container from './components/shared/Container';
 
 function App() {
 

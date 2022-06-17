@@ -1,5 +1,14 @@
 import { IActionType } from "../../const/model";
-import { GET_FAVOURITE_LIST, GET_MOVIES, GET_MOVIE_DETAIL, GET_WATCH_LIST } from "../constants";
+import { ADD_FAV_LIST, ADD_WATCH_LIST, GET_FAV_LIST, GET_MOVIES, GET_MOVIE_DETAIL, GET_REQUEST_SESSION, GET_REQUEST_TOKEN, GET_WATCH_LIST } from "../constants";
+
+export const getRequestToken = (): IActionType => ({
+  type: GET_REQUEST_TOKEN,
+});
+
+export const getRequestSession = (request_token: string): IActionType => ({
+  type: GET_REQUEST_SESSION,
+  payload: request_token
+});
 
 export const getMovies = (term?: string): IActionType => ({
   type: GET_MOVIES,
@@ -11,12 +20,21 @@ export const getMovieDetail = (id?: string): IActionType => ({
   payload: id,
 });
 
+export const addWatchList = (id?: number): IActionType => ({
+  type: ADD_WATCH_LIST,
+  payload: id,
+});
+
 export const getWatchList = (list?: Array<string>): IActionType => ({
   type: GET_WATCH_LIST,
   payload: list,
 });
+export const addFavList = (id?: number): IActionType => ({
+  type: ADD_FAV_LIST,
+  payload: id,
+});
 
 export const getFavList = (list?: Array<string>): IActionType => ({
-  type: GET_FAVOURITE_LIST,
+  type: GET_FAV_LIST,
   payload: list
 })
