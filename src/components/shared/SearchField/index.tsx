@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
 import './index.scss';
 
 interface IProps {
 	placeholder?: string,
 	defaultValue?: string,
-	onChange: any,
+	onChange: (val: string) => void,
 }
 
 const SearchField: FC<IProps> = ({placeholder = '', defaultValue, onChange}) => (
@@ -19,4 +19,4 @@ const SearchField: FC<IProps> = ({placeholder = '', defaultValue, onChange}) => 
   </div>
 )
 
-export default SearchField
+export default memo(SearchField)

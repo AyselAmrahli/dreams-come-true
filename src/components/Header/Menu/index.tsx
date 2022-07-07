@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { IAppMenuList } from '../../../const/model';
 import MenuItem from './MenuItem';
 
@@ -20,4 +20,4 @@ const Menu:FC<IProps> = ({list}) => {
   );
 }
 
-export default Menu;
+export default memo(Menu);

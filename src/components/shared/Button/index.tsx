@@ -4,7 +4,7 @@ import './index.scss';
 
 interface IProps {
 	children: string | ReactNode | ReactElement,
-	onClick: any,
+	onClick: () => void,
 }
 
 const Button: FC<IProps> = ({children, onClick}) => (

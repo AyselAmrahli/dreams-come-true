@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Container from './components/shared/Container';
 
 import './App.scss';
+import Loading from './components/Loading';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Suspense fallback={<span>loading...</span>}>
+        <Suspense fallback={<Loading />}>
           <Router>
             <Header />
             <Routes>

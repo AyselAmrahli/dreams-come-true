@@ -97,7 +97,7 @@ function* watchFetchMovieDetail() {
 }
 
 // fetch watchlist
-export function* fetchWatchList({payload: list}: any) {
+export function* fetchWatchList() {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
@@ -113,7 +113,7 @@ function* watchFetchWatchList() {
 }
 
 // fetch fav list
-export function* fetchFavList({payload: list}: any) {
+export function* fetchFavList() {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
@@ -133,7 +133,7 @@ export function* addWatchList({payload: id}: any) {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    const { data } = yield call(axios.post, `${BASE_URL}/account/${account_id}/watchlist?api_key=${API_KEY}&session_id=${session_id}`, {
+    yield call(axios.post, `${BASE_URL}/account/${account_id}/watchlist?api_key=${API_KEY}&session_id=${session_id}`, {
       "media_type": "movie",
       "media_id": id,
       "watchlist": true
@@ -152,7 +152,7 @@ export function* addFavList({payload: id}: any) {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    const { data } = yield call(axios.post, `${BASE_URL}/account/${account_id}/favorite?api_key=${API_KEY}&session_id=${session_id}`, {
+    yield call(axios.post, `${BASE_URL}/account/${account_id}/favorite?api_key=${API_KEY}&session_id=${session_id}`, {
       "media_type": "movie",
       "media_id": id,
       "favorite": true

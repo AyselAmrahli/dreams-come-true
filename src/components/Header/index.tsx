@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { appMenuList } from '../../const/constant';
 
@@ -35,4 +35,4 @@ const Header:FC = () => {
   );
 }
 
-export default Header;
+export default memo(Header);

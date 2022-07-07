@@ -25,16 +25,14 @@ export const addWatchList = (id?: number): IActionType => ({
   payload: id,
 });
 
-export const getWatchList = (list?: Array<string>): IActionType => ({
+export const getWatchList = (): IActionType => ({
   type: GET_WATCH_LIST,
-  payload: list,
 });
 export const addFavList = (id?: number): IActionType => ({
   type: ADD_FAV_LIST,
   payload: id,
 });
 
-export const getFavList = (list?: Array<string>): IActionType => ({
+export const getFavList = (): IActionType => ({
   type: GET_FAV_LIST,
-  payload: list
 })
