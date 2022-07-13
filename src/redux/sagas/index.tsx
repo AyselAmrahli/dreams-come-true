@@ -1,7 +1,7 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects';
-import axios from 'axios';
 
-import { API_KEY, BASE_URL } from '../../const/constant';
+import Axios from '../service/axios';
+import { BASE_URL } from '../../const/constant';
 import { 
   ADD_FAV_LIST,
   ADD_WATCH_LIST,
@@ -17,7 +17,6 @@ import {
   RECEIVE_MOVIE_DETAIL, 
   RECEIVE_WATCH_LIST 
 } from '../constants';
-import Axios from '../service/axios';
 
 
 // request token
