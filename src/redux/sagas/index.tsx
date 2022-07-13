@@ -1,7 +1,7 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects';
 import axios from 'axios';
 
-import { API_KEY, BASE_URL, getApiUrl } from '../../const/constant';
+import { API_KEY, BASE_URL } from '../../const/constant';
 import { 
   ADD_FAV_LIST,
   ADD_WATCH_LIST,
@@ -17,13 +17,14 @@ import {
   RECEIVE_MOVIE_DETAIL, 
   RECEIVE_WATCH_LIST 
 } from '../constants';
+import Axios from '../service/axios';
 
 
 // request token
 export function* getRequestToken() {
   try {
-    const { data } = yield call(axios.get, getApiUrl('authentication/token/new'))
-    yield call(axios.post, getApiUrl('authentication/token/validate_with_login'), {
+    const { data } = yield call(Axios.get, `${BASE_URL}/authentication/token/new`)
+    yield call(Axios.post, `${BASE_URL}/authentication/token/validate_with_login`, {
       "username": "AyselAmrahli",
       "password": "test1234",
       "request_token": data.request_token
@@ -41,7 +42,9 @@ function* watchGetRequestToken() {
 // session id
 export function* getRequestSession({payload}: any) {
   try {
-    const { data } = yield call(axios.post, getApiUrl('authentication/session/new'), {request_token: payload.request_token})
+    const { data } = yield call(Axios.post, `${BASE_URL}/authentication/session/new`, {
+      request_token: payload.request_token
+    })
     localStorage.setItem('session_id', data.session_id)
     yield put({ type: GET_ACCOUNT_ID, payload: { session_id: data.session_id } })
 
@@ -57,7 +60,11 @@ function* watchGetRequestSession() {
 // account id
 export function* getAccountId({payload}: any) {
   try {
-    const { data } = yield call(axios.get, `${BASE_URL}/account?api_key=${API_KEY}&session_id=${payload.session_id}`)
+    const { data } = yield call(Axios.get, `${BASE_URL}/account`, {
+      params: {
+        session_id: payload.session_id
+      }
+    })
     localStorage.setItem('account_id', data.id)
   } catch (e) {
     console.log(e)
@@ -71,7 +78,7 @@ function* watchGetAccountId() {
 // fetch movies
 export function* fetchMovies({payload: term}: any) {
   try {
-    const { data } = yield call(axios.get, getApiUrl(`movie/popular`, term), )
+    const { data } = yield call(Axios.get, `${BASE_URL}/movie/popular`, term)
     yield put({ type: RECEIVE_MOVIES, payload: { movies: data.results } })
   } catch (e) {
     console.log(e)
@@ -85,7 +92,7 @@ function* watchFetchMovies() {
 // fetch movie detail
 export function* fetchMovieDetail({payload: id}: any) {
   try {
-    const { data } = yield call(axios.get, getApiUrl(`movie/${id}`))
+    const { data } = yield call(Axios.get, `${BASE_URL}/movie/${id}`)
     yield put({ type: RECEIVE_MOVIE_DETAIL, payload: { movie: data } })
   } catch (e) {
     console.log(e)
@@ -101,7 +108,11 @@ export function* fetchWatchList() {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    const { data } = yield call(axios.get, `${BASE_URL}/account/${account_id}/watchlist/movies?api_key=${API_KEY}&session_id=${session_id}`)
+    const { data } = yield call(Axios.get, `${BASE_URL}/account/${account_id}/watchlist/movies`, {
+      params: {
+        session_id
+      }
+    })
     yield put({ type: RECEIVE_WATCH_LIST, payload: { watchList: data.results } })
   } catch (e) {
     console.log(e)
@@ -117,7 +128,11 @@ export function* fetchFavList() {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    const { data } = yield call(axios.get, `${BASE_URL}/account/${account_id}/favorite/movies?api_key=${API_KEY}&session_id=${session_id}`)
+    const { data } = yield call(Axios.get, `${BASE_URL}/account/${account_id}/favorite/movies?`, {
+      params: {
+        session_id
+      }
+    })
     yield put({ type: RECEIVE_FAV_LIST, payload: { favList: data.results } })
   } catch (e) {
     console.log(e)
@@ -133,7 +148,7 @@ export function* addWatchList({payload: id}: any) {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    yield call(axios.post, `${BASE_URL}/account/${account_id}/watchlist?api_key=${API_KEY}&session_id=${session_id}`, {
+    yield call(Axios.post, `${BASE_URL}/account/${account_id}/watchlist?session_id=${session_id}`, {
       "media_type": "movie",
       "media_id": id,
       "watchlist": true
@@ -152,7 +167,7 @@ export function* addFavList({payload: id}: any) {
   try {
     const account_id = localStorage.getItem('account_id')
     const session_id = localStorage.getItem('session_id')
-    yield call(axios.post, `${BASE_URL}/account/${account_id}/favorite?api_key=${API_KEY}&session_id=${session_id}`, {
+    yield call(Axios.post, `${BASE_URL}/account/${account_id}/favorite?session_id=${session_id}`, {
       "media_type": "movie",
       "media_id": id,
       "favorite": true
